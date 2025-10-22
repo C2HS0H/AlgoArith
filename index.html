@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AlgoArith | Computer Arithmetic Calculator</title>
+    <!-- SEO Meta Tags -->
+    <meta
+      name="description"
+      content="A free, interactive tool to visualize and learn computer arithmetic algorithms. See step-by-step demonstrations of Booth's Multiplication and Restoring Division."
+    />
+    <meta
+      name="keywords"
+      content="computer arithmetic, booth's algorithm, restoring division, binary calculator, multiplication, division, computer architecture, digital logic, binary, radix-4, algorithm visualizer"
+    />
+    <meta name="author" content="Mansi" />
+    <meta name="robots" content="index, follow" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      // Customizing Tailwind to use the strict color scheme
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              background: "#000000",
+              card: "#111111",
+              "primary-text": "#eaeaea",
+              "secondary-text": "#a1a1a1",
+              highlight: "#ffffff",
+              border: "#333333",
+              error: "#ff5555",
+              "button-bg": "#ffffff",
+              "button-text": "#000000",
+              "button-hover-bg": "#f0f0f0",
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+  <body
+    class="bg-background text-primary-text font-sans flex flex-col justify-center items-center min-h-screen p-4 sm:p-8"
+  >
+    <main class="w-full max-w-4xl flex flex-col gap-8">
+      <div class="bg-card border border-border rounded-xl p-6 sm:p-8 shadow-lg">
+        <h1
+          class="text-3xl sm:text-4xl font-bold text-center text-highlight mb-8 tracking-tighter"
+        >
+          Computer Arithmetic Calculator
+        </h1>
+        <div
+          class="flex justify-center bg-background border border-border rounded-lg p-1 mx-auto mb-8 max-w-md"
+        >
+          <button
+            id="booth-btn"
+            class="flex-1 py-2 px-4 text-secondary-text font-semibold text-sm sm:text-base rounded-md transition-colors duration-200"
+          >
+            Booth's Multiplication
+          </button>
+          <button
+            id="division-btn"
+            class="flex-1 py-2 px-4 text-secondary-text font-semibold text-sm sm:text-base rounded-md transition-colors duration-200"
+          >
+            Restoring Division
+          </button>
+        </div>
+        <form id="calculator-form">
+          <!-- Booth's Multiplication Tool Inputs -->
+          <div id="booth-tool">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-10">
+              <div class="flex flex-col">
+                <label
+                  for="multiplicandBinaryInput"
+                  class="mb-2 text-secondary-text font-medium text-sm"
+                  >Multiplicand (Binary)</label
+                >
+                <input
+                  type="text"
+                  id="multiplicandBinaryInput"
+                  placeholder="e.g., 0111"
+                  value="110101"
+                  class="bg-background border border-border rounded-lg py-2 px-4 text-primary-text focus:outline-none focus:ring-2 focus:ring-highlight focus:border-transparent font-mono"
+                />
+              </div>
+              <div class="flex flex-col">
+                <label
+                  for="multiplierBinaryInput"
+                  class="mb-2 text-secondary-text font-medium text-sm"
+                  >Multiplier (Binary)</label
+                >
+                <input
+                  type="text"
+                  id="multiplierBinaryInput"
+                  placeholder="e.g., 0011"
+                  value="011011"
+                  class="bg-background border border-border rounded-lg py-2 px-4 text-primary-text focus:outline-none focus:ring-2 focus:ring-highlight focus:border-transparent font-mono"
+                />
+              </div>
+              <div class="flex flex-col sm:col-span-2">
+                <label
+                  for="wordLengthInput"
+                  class="mb-2 text-secondary-text font-medium text-sm"
+                  >Word Length</label
+                >
+                <input
+                  type="text"
+                  id="wordLengthInput"
+                  placeholder="e.g., 8"
+                  value="6"
+                  class="bg-background border border-border rounded-lg py-2 px-4 text-primary-text focus:outline-none focus:ring-2 focus:ring-highlight focus:border-transparent font-mono"
+                />
+              </div>
+            </div>
+          </div>
+          <!-- Restoring Division Tool Inputs -->
+          <div id="division-tool" class="hidden">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-10">
+              <div class="flex flex-col">
+                <label
+                  for="dividend"
+                  class="mb-2 text-secondary-text font-medium text-sm"
+                  >Dividend</label
+                >
+                <input
+                  type="number"
+                  id="dividend"
+                  min="0"
+                  value="6"
+                  class="bg-background border border-border rounded-lg py-2 px-4 text-primary-text focus:outline-none focus:ring-2 focus:ring-highlight focus:border-transparent"
+                />
+              </div>
+              <div class="flex flex-col">
+                <label
+                  for="divisor"
+                  class="mb-2 text-secondary-text font-medium text-sm"
+                  >Divisor</label
+                >
+                <input
+                  type="number"
+                  id="divisor"
+                  min="1"
+                  value="3"
+                  class="bg-background border border-border rounded-lg py-2 px-4 text-primary-text focus:outline-none focus:ring-2 focus:ring-highlight focus:border-transparent"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="flex justify-center">
+            <button
+              type="submit"
+              class="py-2 px-6 rounded-lg font-semibold bg-button-bg text-button-text hover:bg-button-hover-bg transition-all duration-200 transform hover:-translate-y-0.5"
+            >
+              Calculate
+            </button>
+          </div>
+        </form>
+      </div>
+      <div
+        id="results-container"
+        class="hidden bg-card border border-border rounded-xl p-6 sm:p-8 shadow-lg"
+      ></div>
+    </main>
+    <footer class="text-center py-8">
+      <p class="text-secondary-text text-sm">
+        Made with <span class="text-error" aria-hidden="true">&hearts;</span> by
+        <a
+          href="https://github.com/C2HS0H"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-highlight hover:underline transition-colors"
+        >
+          C2HS0H
+        </a>
+      </p>
+    </footer>
+    <script src="./script.js"></script>
+  </body>
+</html>
