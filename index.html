@@ -7,11 +7,11 @@
     <!-- SEO Meta Tags -->
     <meta
       name="description"
-      content="A free, interactive tool to visualize and learn computer arithmetic algorithms. See step-by-step demonstrations of Booth's Multiplication and Restoring Division."
+      content="A free, interactive tool to visualize and learn computer arithmetic algorithms. See step-by-step demonstrations of Booth's Multiplication, Restoring Division, and Non-Restoring Division."
     />
     <meta
       name="keywords"
-      content="computer arithmetic, booth's algorithm, restoring division, binary calculator, multiplication, division, computer architecture, digital logic, binary, radix-4, algorithm visualizer"
+      content="computer arithmetic, booth's algorithm, restoring division, non-restoring division, binary calculator, multiplication, division, computer architecture, digital logic, binary, radix-4, algorithm visualizer"
     />
     <meta name="author" content="Mansi" />
     <meta name="robots" content="index, follow" />
@@ -55,13 +55,13 @@
             id="booth-btn"
             class="flex-1 py-2 px-4 text-secondary-text font-semibold text-sm sm:text-base rounded-md transition-colors duration-200"
           >
-            Booth's Multiplication
+            Booth's (Radix-2 & 4)
           </button>
           <button
             id="division-btn"
             class="flex-1 py-2 px-4 text-secondary-text font-semibold text-sm sm:text-base rounded-md transition-colors duration-200"
           >
-            Restoring Division
+            Division
           </button>
         </div>
         <form id="calculator-form">
@@ -112,8 +112,48 @@
               </div>
             </div>
           </div>
-          <!-- Restoring Division Tool Inputs -->
+          <!-- Division Tool Inputs -->
           <div id="division-tool" class="hidden">
+            <div class="mb-8">
+              <label
+                class="mb-3 block text-secondary-text font-medium text-sm text-center"
+                >Select Algorithm</label
+              >
+              <div
+                class="flex justify-center items-center gap-6 bg-background border border-border rounded-lg p-2 max-w-sm mx-auto"
+              >
+                <div class="flex-1 text-center">
+                  <input
+                    type="radio"
+                    id="restoring-radio"
+                    name="division-algorithm"
+                    value="restoring"
+                    class="hidden peer"
+                    checked
+                  />
+                  <label
+                    for="restoring-radio"
+                    class="block w-full py-2 px-4 rounded-md text-sm font-semibold cursor-pointer transition-colors duration-200 text-secondary-text peer-checked:bg-card peer-checked:text-highlight"
+                    >Restoring</label
+                  >
+                </div>
+                <div class="flex-1 text-center">
+                  <input
+                    type="radio"
+                    id="non-restoring-radio"
+                    name="division-algorithm"
+                    value="non-restoring"
+                    class="hidden peer"
+                  />
+                  <label
+                    for="non-restoring-radio"
+                    class="block w-full py-2 px-4 rounded-md text-sm font-semibold cursor-pointer transition-colors duration-200 text-secondary-text peer-checked:bg-card peer-checked:text-highlight"
+                    >Non-Restoring</label
+                  >
+                </div>
+              </div>
+            </div>
+
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-10">
               <div class="flex flex-col">
                 <label
